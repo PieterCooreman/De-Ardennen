@@ -1,0 +1,566 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De Ardennen – Een landschap om langzaam te ontdekken</title>
+    <meta name="description" content="De Ardennen: glooiende heuvels, dichte bossen, kronkelende rivieren en een rijke geschiedenis. Ontdek de vier seizoenen, wandel- en fietspaden en de stille schoonheid van dit bijzondere landschap.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!--ID:1--><style>
+        :root {
+            --primary: #2e5f3e;
+            --primary-dark: #234b2f;
+            --accent: #c47f3d;
+            --bg-light: #f4f6f3;
+            --text-dark: #2b2b2b;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, h5, h6, .font-display {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+        .navbar {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: transparent;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .navbar.scrolled {
+            background-color: rgba(22, 32, 22, 0.95) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+        .navbar .nav-link:hover {
+            color: #d4e6d4 !important;
+        }
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+        }
+        .hero {
+            position: relative;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+        }
+        .hero-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+            z-index: 1;
+        }
+        .hero .container {
+            position: relative;
+            z-index: 2;
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        .hero .lead {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        .btn-outline-light:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 1rem;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.12) !important;
+        }
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+        .gallery-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 0.75rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .gallery-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
+        }
+        .rounded-4 {
+            border-radius: 1rem !important;
+        }
+        .bg-light {
+            background-color: var(--bg-light) !important;
+        }
+        .text-primary-forest {
+            color: var(--primary) !important;
+        }
+        .footer a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .modal-content {
+            border-radius: 1rem;
+        }
+        .btn-close-white {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+        @media (max-width: 576px) {
+            .hero .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 0.75rem;
+            }
+            .hero .btn + .btn {
+                margin-left: 0;
+            }
+            .navbar-nav {
+                background-color: rgba(22, 32, 22, 0.95);
+                padding: 1rem;
+                border-radius: 0.5rem;
+            }
+        }
+    /*autonome-guard*/
+/* responsive safety net, keep - prevents mobile horizontal overflow */
+html{scroll-padding-top:84px;}
+html,body{overflow-x:hidden;overflow-x:clip;max-width:100%;}
+img,video,iframe{max-width:100%;height:auto;}
+h1,h2,h3,h4,.display-1,.display-2,.display-3,.display-4,.display-5,.display-6{overflow-wrap:break-word;}
+</style><!--/ID:1-->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="De Ardennen – Een landschap om langzaam te ontdekken">
+    <meta property="og:description" content="De Ardennen: glooiende heuvels, dichte bossen, kronkelende rivieren en een rijke geschiedenis. Ontdek de vier seizoenen, wandel- en fietspaden en de stille schoonheid van dit bijzondere landschap.">
+    <meta property="og:url" content="https://autonome.quickersite.com/sites/jq5u79d06ylq8ems/">
+</head>
+<body>
+    <!-- Navbar -->
+    <!--ID:2--><nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#hero">🌲 De Ardennen</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Navigatie openen">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#intro">Intro</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#seizoenen">Seizoenen</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#galerij">Galerij</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#activiteiten">Activiteiten</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#geschiedenis">Geschiedenis</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav><!--/ID:2-->
+
+    <!-- Hero -->
+    <header id="hero" class="hero">
+        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80" 
+             class="hero-img" 
+             alt="Mistig bos met zonnestralen in de Ardennen" 
+             onerror="this.onerror=null;this.src='https://placehold.co/1920x1080?text=De+Ardennen';">
+        <!--ID:3--><div class="hero-overlay"></div><!--/ID:3-->
+        <!--ID:4--><div class="container">
+            <h1 class="display-3 fw-bold mb-3">De Ardennen</h1>
+            <p class="lead mb-4">Een landschap dat langzaam ontdekt moet worden – met rustige ogen en een open hart.</p>
+            <a href="#intro" class="btn btn-primary btn-lg px-4 py-3 me-2">Ontdek meer</a>
+            <a href="#galerij" class="btn btn-outline-light btn-lg px-4 py-3">Bekijk galerij</a>
+        </div><!--/ID:4-->
+    </header>
+
+    <!-- Intro -->
+    <!--ID:7--><section id="intro" class="py-5">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <!--ID:5--><div class="col-lg-6">
+                    <h2 class="section-title mb-4">Een landschap om te voelen</h2>
+                    <p class="lead">Hier gaan de heuvels zacht op en neer, alsof de aarde zelf ademt.</p>
+                    <p>Dichte bossen van eiken, beuken en dennen strekken zich uit tot aan de horizon, waar de lucht vaak grijsblauw boven de dalen hangt. In de ochtend ligt er een dunne mist over de velden en kronkelen kleine rivieren tussen de bomen als zilveren draden.</p>
+                    <p>Het is een plek waar de tijd langzamer gaat; waar stilte niet leeg is, maar vol zit met herinneringen, natuur en mysterie.</p>
+                    <a href="#seizoenen" class="btn btn-primary mt-3">Ontdek de seizoenen</a>
+                </div><!--/ID:5-->
+                <!--ID:6--><div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" 
+                         class="img-fluid rounded-4 shadow" 
+                         alt="Glooiende heuvels en groene valleien in de Ardennen" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/800x600?text=Ardennen+heuvels';">
+                </div><!--/ID:6-->
+            </div>
+        </div>
+    </section><!--/ID:7-->
+
+    <!-- Seizoenen -->
+    <!--ID:12--><section id="seizoenen" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">De vier gezichten</h2>
+            <div class="row g-4">
+                <!--ID:8--><div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80" 
+                             class="card-img-top" 
+                             alt="Lente in de Ardennen" 
+                             onerror="this.onerror=null;this.src='https://placehold.co/800x600?text=Lente';">
+                        <div class="card-body">
+                            <h5 class="card-title">Lente</h5>
+                            <p class="card-text">Fris groen ontluikt langs de bospaden, beken zwellen aan en de eerste bloemen kleuren de bermen.</p>
+                        </div>
+                    </div>
+                </div><!--/ID:8-->
+                <!--ID:9--><div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80" 
+                             class="card-img-top" 
+                             alt="Zomer in de Ardennen" 
+                             onerror="this.onerror=null;this.src='https://placehold.co/800x600?text=Zomer';">
+                        <div class="card-body">
+                            <h5 class="card-title">Zomer</h5>
+                            <p class="card-text">Diep groen glanst in het zonlicht, en gouden stralen filteren door het dichte bladerdak.</p>
+                        </div>
+                    </div>
+                </div><!--/ID:9-->
+                <!--ID:10--><div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=800&q=80" 
+                             class="card-img-top" 
+                             alt="Herfst in de Ardennen" 
+                             onerror="this.onerror=null;this.src='https://placehold.co/800x600?text=Herfst';">
+                        <div class="card-body">
+                            <h5 class="card-title">Herfst</h5>
+                            <p class="card-text">Oranje, rood en geel zetten het landschap in vlammen, alsof de Ardennen zelf gloeien.</p>
+                        </div>
+                    </div>
+                </div><!--/ID:10-->
+                <!--ID:11--><div class="col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="https://images.unsplash.com/photo-1517299321609-52687d1bc55a?auto=format&fit=crop&w=800&q=80" 
+                             class="card-img-top" 
+                             alt="Winter in de Ardennen" 
+                             onerror="this.onerror=null;this.src='https://placehold.co/800x600?text=Winter';">
+                        <div class="card-body">
+                            <h5 class="card-title">Winter</h5>
+                            <p class="card-text">Een zachte sluier van sneeuw dempt elk geluid; ijs op beken maakt de stilte scherp.</p>
+                        </div>
+                    </div>
+                </div><!--/ID:11-->
+            </div>
+        </div>
+    </section><!--/ID:12-->
+
+    <!-- Galerij -->
+    <!--ID:21--><section id="galerij" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Galerij</h2>
+            <div class="row g-3">
+                <!--ID:13--><div class="col-6 col-md-4 col-lg-3">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=600&q=80" 
+                         class="gallery-img" 
+                         alt="Zonnestralen door het bos" 
+                         onclick="openLightbox('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80', 'Zonnestralen door het bos')" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Bos';">
+                </div><!--/ID:13-->
+                <!--ID:14--><div class="col-6 col-md-4 col-lg-3">
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80" 
+                         class="gallery-img" 
+                         alt="Heuvels en valleien" 
+                         onclick="openLightbox('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80', 'Heuvels en valleien')" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Heuvels';">
+                </div><!--/ID:14-->
+                <!--ID:15--><div class="col-6 col-md-4 col-lg-3">
+                    <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=600&q=80" 
+                         class="gallery-img" 
+                         alt="Rivier door het bos" 
+                         onclick="openLightbox('https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=80', 'Rivier door het bos')" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Rivier';">
+                </div><!--/ID:15-->
+                <!--ID:16--><div class="col-6 col-md-4 col-lg-3">
+                    <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=600&q=80" 
+                         class="gallery-img" 
+                         alt="Mist over het veld" 
+                         onclick="openLightbox('https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1200&q=80', 'Mist over het veld')" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Mist';">
+                </div><!--/ID:16-->
+                <!--ID:17--><div class="col-6 col-md-4 col-lg-3">
+                    <img src="https://images.unsplash.com/photo-1526397751290-331b16119f45?auto=format&fit=crop&w=600&q=80" 
+                         class="gallery-img" 
+                         alt="Stenen dorp in de vallei" 
+                         onclick="openLightbox('https://images.unsplash.com/photo-1526397751290-331b16119f45?auto=format&fit=crop&w=1200&q=80', 'Stenen dorp')" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Dorp';">
+                </div><!--/ID:17-->
+                <!--ID:18--><div class="col-6 col-md-4 col-lg-3">
+                    <img src="https://images.unsplash.com/photo-1533154683836-84ea7a0bc310?auto=format&fit=crop&w=600&q=80" 
+                         class="gallery-img" 
+                         alt="Oud kasteel" 
+                         onclick="openLightbox('https://images.unsplash.com/photo-1533154683836-84ea7a0bc310?auto=format&fit=crop&w=1200&q=80', 'Oud kasteel')" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Kasteel';">
+                </div><!--/ID:18-->
+                <!--ID:19--><div class="col-6 col-md-4 col-lg-3">
+                    <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80" 
+                         class="gallery-img" 
+                         alt="Herfstbos in vlammen" 
+                         onclick="openLightbox('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1200&q=80', 'Herfstbos')" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Herfstbos';">
+                </div><!--/ID:19-->
+                <!--ID:20--><div class="col-6 col-md-4 col-lg-3">
+                    <img src="https://images.unsplash.com/photo-1517299321609-52687d1bc55a?auto=format&fit=crop&w=600&q=80" 
+                         class="gallery-img" 
+                         alt="Besneeuwd winterbos" 
+                         onclick="openLightbox('https://images.unsplash.com/photo-1517299321609-52687d1bc55a?auto=format&fit=crop&w=1200&q=80', 'Besneeuwd winterbos')" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=Winterbos';">
+                </div><!--/ID:20-->
+            </div>
+        </div>
+    </section><!--/ID:21-->
+
+    <!-- Activiteiten -->
+    <!--ID:26--><section id="activiteiten" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Wat je kunt doen</h2>
+            <div class="row g-4 text-center">
+                <!--ID:22--><div class="col-md-3">
+                    <div class="card h-100 shadow-sm border-0 rounded-4 p-3">
+                        <div class="card-body">
+                            <i class="bi bi-person-walking fs-1 text-primary-forest"></i>
+                            <h5 class="card-title mt-3">Wandelen</h5>
+                            <p class="card-text">Smalle paden door bossen waar de geur van aarde, hars en regen in de lucht hangt.</p>
+                        </div>
+                    </div>
+                </div><!--/ID:22-->
+                <!--ID:23--><div class="col-md-3">
+                    <div class="card h-100 shadow-sm border-0 rounded-4 p-3">
+                        <div class="card-body">
+                            <i class="bi bi-bicycle fs-1 text-primary-forest"></i>
+                            <h5 class="card-title mt-3">Fietsen</h5>
+                            <p class="card-text">Glooiende wegen en panorama's die zich bij elke bocht opnieuw openen.</p>
+                        </div>
+                    </div>
+                </div><!--/ID:23-->
+                <!--ID:24--><div class="col-md-3">
+                    <div class="card h-100 shadow-sm border-0 rounded-4 p-3">
+                        <div class="card-body">
+                            <i class="bi bi-map fs-1 text-primary-forest"></i>
+                            <h5 class="card-title mt-3">Verdwalen</h5>
+                            <p class="card-text">Laat je leiden door de stille paden en vind de verborgen plekjes van de Ardennen.</p>
+                        </div>
+                    </div>
+                </div><!--/ID:24-->
+                <!--ID:25--><div class="col-md-3">
+                    <div class="card h-100 shadow-sm border-0 rounded-4 p-3">
+                        <div class="card-body">
+                            <i class="bi bi-camera fs-1 text-primary-forest"></i>
+                            <h5 class="card-title mt-3">Fotograferen</h5>
+                            <p class="card-text">Vang het licht dat door de mist breekt, de kleuren van de herfst, de stilte van de winter.</p>
+                        </div>
+                    </div>
+                </div><!--/ID:25-->
+            </div>
+        </div>
+    </section><!--/ID:26-->
+
+    <!-- Geschiedenis -->
+    <!--ID:29--><section id="geschiedenis" class="py-5">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <!--ID:27--><div class="col-lg-6 order-lg-2">
+                    <img src="https://images.unsplash.com/photo-1533154683836-84ea7a0bc310?auto=format&fit=crop&w=800&q=80" 
+                         class="img-fluid rounded-4 shadow" 
+                         alt="Oud kasteel in de Ardennen" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/800x600?text=Kasteel';">
+                </div><!--/ID:27-->
+                <!--ID:28--><div class="col-lg-6 order-lg-1">
+                    <h2 class="section-title mb-4">Een land van geschiedenis</h2>
+                    <p>Onder de mosbegroeide stenen en oude muren liggen sporen van oorlogen, wegen en levens die hier lang geleden zijn verstreken. Kasteeltorens kijken uit over groene valleien, dorpen met steenhuizen lijken te slapen in het zachte licht.</p>
+                    <p>Smalle paden leiden door bossen waar de geschiedenis nog voelbaar is – in de oude eiken, de verweerde muren en de stille herinneringen aan vervlogen tijden.</p>
+                </div><!--/ID:28-->
+            </div>
+        </div>
+    </section><!--/ID:29-->
+
+    <!-- Footer -->
+    <!--ID:32--><footer class="bg-dark text-light py-5 mt-5 footer">
+        <div class="container">
+            <div class="row">
+                <!--ID:30--><div class="col-md-6 mb-3 mb-md-0">
+                    <h5 class="mb-3">🌲 De Ardennen</h5>
+                    <p class="small mb-0">Een ode aan het landschap dat je uitnodigt om te vertragen.</p>
+                </div><!--/ID:30-->
+                <!--ID:31--><div class="col-md-6 text-md-end">
+                    <p class="small mb-2">&copy; 2026 De Ardennen</p>
+                    <a href="#" class="me-2" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy</a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#cookieModal">Cookies / Cookie-instellingen</a>
+                </div><!--/ID:31-->
+            </div>
+        </div>
+    </footer><!--/ID:32-->
+
+    <!-- Lightbox Modal -->
+    <!--ID:35--><div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark">
+                <!--ID:33--><div class="modal-header border-0">
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div><!--/ID:33-->
+                <!--ID:34--><div class="modal-body text-center">
+                    <img src="" id="lightboxImage" class="img-fluid rounded" alt="Lichtbox afbeelding">
+                    <p id="lightboxCaption" class="text-white mt-3 mb-0"></p>
+                </div><!--/ID:34-->
+            </div>
+        </div>
+    </div><!--/ID:35-->
+
+    <!-- Cookie modal -->
+    <!--ID:39--><div class="modal fade" id="cookieModal" tabindex="-1" aria-labelledby="cookieModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!--ID:36--><div class="modal-header">
+                    <h5 class="modal-title" id="cookieModalLabel">Cookies</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div><!--/ID:36-->
+                <!--ID:37--><div class="modal-body">
+                    <p class="small text-secondary mb-2">We gebruiken alleen noodzakelijke cookies om deze site te laten werken (functioneel / localStorage voor jouw voorkeuren). Er worden geen tracking- of marketingcookies gebruikt. Als later ingesloten inhoud (kaarten, video, analytics) wordt toegevoegd, kunnen die hun eigen cookies plaatsen – zie Privacy voor details.</p>
+                    <p class="small text-secondary mb-0">Je kunt je keuze op elk moment wijzigen via de link Cookies in de voettekst.</p>
+                </div><!--/ID:37-->
+                <!--ID:38--><div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" id="cookieReject" data-bs-dismiss="modal">Weigeren / Sluiten</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="cookieAccept">Accepteren</button>
+                </div><!--/ID:38-->
+            </div>
+        </div>
+    </div><!--/ID:39-->
+
+    <!-- Privacy modal -->
+    <!--ID:41--><div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <!--ID:40--><div class="modal-header">
+                    <h5 class="modal-title" id="privacyModalLabel">Privacyverklaring</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Sluiten"></button>
+                </div><!--/ID:40-->
+                <div class="modal-body small">
+                    <p><strong>Verwerkingsverantwoordelijke:</strong> De Ardennen.</p>
+                    <p><strong>Wat we verzamelen:</strong> alleen gegevens die je zelf verstrekt (bijv. via formulieren) en standaard serverlogs (IP-adres, user agent) voor beveiliging. Er worden geen gegevens verkocht.</p>
+                    <p><strong>Doel en rechtsgrond:</strong> om de website te laten functioneren en te beveiligen (gerechtvaardigd belang / overeenkomst) en om op jouw verzoeken te reageren (toestemming).</p>
+                    <p><strong>Bewaartermijn:</strong> serverlogs worden kort bewaard; formuliergegevens alleen zolang nodig om jouw verzoek te behandelen.</p>
+                    <p><strong>Jouw rechten:</strong> je kunt toegang, correctie of verwijdering van jouw gegevens vragen. Neem contact op via de site.</p>
+                    <p class="mb-0 text-secondary">Dit is een sjabloon – pas deze tekst aan jouw feitelijke verwerking aan.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Sluiten</button>
+                </div>
+            </div>
+        </div>
+    </div><!--/ID:41--><!--ID:42-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.getElementById('mainNav');
+            if (navbar) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                });
+                // initial check
+                if (window.scrollY > 50) navbar.classList.add('scrolled');
+            }
+
+            // Cookie consent
+            try {
+                if (!localStorage.getItem('cookieConsent')) {
+                    const el = document.getElementById('cookieModal');
+                    if (el && window.bootstrap) new bootstrap.Modal(el).show();
+                }
+            } catch(e) {}
+
+            const cookieAccept = document.getElementById('cookieAccept');
+            if (cookieAccept) {
+                cookieAccept.addEventListener('click', function() {
+                    try { localStorage.setItem('cookieConsent','accepted'); } catch(e) {}
+                    const modal = document.getElementById('cookieModal');
+                    if (modal && window.bootstrap) {
+                        const instance = bootstrap.Modal.getInstance(modal);
+                        if (instance) instance.hide();
+                    }
+                });
+            }
+            const cookieReject = document.getElementById('cookieReject');
+            if (cookieReject) {
+                cookieReject.addEventListener('click', function() {
+                    try { localStorage.setItem('cookieConsent','rejected'); } catch(e) {}
+                });
+            }
+        });
+
+        // Lightbox
+        function openLightbox(src, caption) {
+            const modalElement = document.getElementById('lightboxModal');
+            const image = document.getElementById('lightboxImage');
+            const captionEl = document.getElementById('lightboxCaption');
+            if (image && modalElement) {
+                image.setAttribute('src', src);
+                image.setAttribute('alt', caption || 'Lichtbox afbeelding');
+                if (captionEl) captionEl.textContent = caption || '';
+                const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+                modal.show();
+            }
+        }
+    </script>
+<!--/ID:42--></body>
+</html>
